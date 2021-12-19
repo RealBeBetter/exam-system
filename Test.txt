@@ -1,0 +1,88 @@
+1、（	）符号是lambda表达式的操作符？
+A）-->		B）？
+C）！		D）&
+正确答案：A
+/
+2、（	）协议是面向连接的传输层协议
+A）UDP协议	B）TCP协议
+C）端口		D）枚举类型
+正确答案：B
+/
+3、下面（        ）类是属于容器类？
+A）Math			B）Object
+C）ArrayList		D）Exception
+正确答案：C
+/
+4、Thread类中能让线程体进行休眠的方法是
+A）start()			B）resume()
+C）sleep()		D）wait()
+正确答案：C
+/
+5、以下（        ）类是属于异常类或其子类？
+A）Thread		B）ArrayIndexOutOfBoundsException
+C）FileInputStream		D）FileOutputStream
+正确答案：B
+/
+6、以下属于JDBC相关类的是（        ）：
+A）Connection 			B）JFrame
+C）JMenu				D）JPanel
+正确答案：A
+/
+7、以下（		）项不是JDBC与数据库连接的协议
+A）JDBC-ODBC桥驱动程序			B）JDBC网络纯Java驱动程序
+C）本地协议的纯Java驱动程序		D）ODBC
+正确答案：D
+/
+8、以下与JDBC连接数据库相关的类是（        ）：
+A）JTextField 				B）File
+C）Statement				D）StringBuffer
+正确答案：C
+/
+9、Runnable接口中的抽象方法是（     ）。
+A）start
+B）stop
+C）yield
+D）run
+正确答案：D
+/
+10、FileOutputStream类一下哪种说法正确（    ）。
+A) 字节流输入流
+B) 字节流输出流
+C) 字符流输入流
+D) 字符流输出流
+正确答案：B
+/
+11、Java中，JDBC是指( )
+A.Java程序与数据库连接的一种机制
+B.Java程序与浏览器交互的一种机制
+C.Java类库名称
+D.Java类编译程序
+正确答案：A
+/
+12、以下对JDBC事务描述错误的是（）
+A.JDBC事务可以保证操作的完整性和一致性
+B.JDBC事务是由Connection发起的，并由Connection控制
+C.JDBC事务属于JAVA事务的一种
+D.JDBC事务属于容器事务类型
+正确答案：D
+/
+13、JDBC中，用于表示数据库连接的对象是？
+A.PreparedStatement
+B.DriverManager
+C.Connection
+D.Statement
+正确答案：C
+/
+14、在Java中，与数据库连接的技术是？
+A.开放数据库连接
+B.数据库厂家驱动程序
+C.数据库厂家的连接协议
+D.Java数据库连接
+正确答案：D
+/
+15、查找表结构用以下哪一项()
+A.FIND
+B.DESC
+C.ALTER
+D.SELETE
+正确答案：B
