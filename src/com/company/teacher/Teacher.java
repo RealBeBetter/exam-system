@@ -1,8 +1,8 @@
 package com.company.teacher;
 
 /**
- * @ author： 雨下一整晚Real
- * @ date： 2021年05月10日 15:22
+ * @author 雨下一整晚Real
+ * @date 2021年05月10日 15:22
  */
 public class Teacher {
     private long teacherId;

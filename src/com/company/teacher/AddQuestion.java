@@ -12,8 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * @ author： 雨下一整晚Real
- * @ date： 2021年05月10日 15:41
+ * @author 雨下一整晚Real
+ * @date 2021年05月10日 15:41
  */
 public class AddQuestion extends JFrame implements ActionListener {
     String[] stringAnswer = {"-请选择-", "A", "B", "C", "D"};
@@ -24,7 +24,6 @@ public class AddQuestion extends JFrame implements ActionListener {
     JLabel questionText = new JLabel("请输入题目内容：");
     JLabel questionAnswer = new JLabel("请选择题目答案：");
 
-    // JTextField jtfNum = new JTextField();
     JTextArea jtfText = new JTextArea(20, 40);
     JComboBox jcbAnswer = new JComboBox(stringAnswer);
 
@@ -62,7 +61,6 @@ public class AddQuestion extends JFrame implements ActionListener {
         this.setSize(1000, 600);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        /*this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);*/
     }
 
     public static int getQuestionFlag() {
@@ -104,16 +102,11 @@ public class AddQuestion extends JFrame implements ActionListener {
         // 添加试题
 
         if (actionEvent.getSource() == btnOk) {
-            /*Test[] addTests = new Test[1];*/
-            // String num = jtfNum.getText();
             String text = jtfText.getText();
             String answer = stringAnswer[jcbAnswer.getSelectedIndex()];
             int isEmpty = 0;
             int isSelect = 0;
             // int isLegal = 0;
-            /*if ("".equals(num)) {
-                JOptionPane.showMessageDialog(null, "请输入题号！");
-            } else */
             if ("".equals(text)) {
                 JOptionPane.showMessageDialog(null, "请输入题目！");
             } else {
@@ -125,13 +118,7 @@ public class AddQuestion extends JFrame implements ActionListener {
                 isSelect = 1;
             }
 
-            /*if (isAllNumber(num)) {
-                isLegal = 1;
-            } else {
-                JOptionPane.showMessageDialog(null, "您输入的题号不规范！");
-            }*/
-
-            if (isEmpty == 1 &&/* isLegal == 1 && */ isSelect == 1) {
+            if (isEmpty == 1 && isSelect == 1) {
                 // 开始连接数据库传入参数
                 Connection conn = null;
                 PreparedStatement preparedStatement = null;
@@ -155,7 +142,6 @@ public class AddQuestion extends JFrame implements ActionListener {
                     JDBCUtils.close(rsQuery, preparedStatement, conn);
                 }*/
 
-                /*if (isExist == 0) {*/
                 try {
                     conn = JDBCUtils.getConnection();
                     String sql = "insert into test(num, question, answer) " +
@@ -183,7 +169,6 @@ public class AddQuestion extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "请输入题目或者选择答案！");
             }
 
-            /*}*/
         } else if (actionEvent.getSource() == btnCancel) {
             this.dispose();
         }

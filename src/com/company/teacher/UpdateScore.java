@@ -12,10 +12,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * @ author： 雨下一整晚Real
- * @ date： 2021年05月10日 15:49
+ * @author 雨下一整晚Real
+ * @date 2021年05月10日 15:49
  */
 public class UpdateScore extends JFrame implements ActionListener {
+
+    public static final int MAX_SCORE = 100;
+    public static final int STU_NO_LENGTH = 11;
+
     JLabel updateId = new JLabel("请输入要修改的学生学号：");
     JLabel updateScore = new JLabel("请输入要修改的成绩：");
     JTextField jtfId = new JTextField(20);
@@ -23,7 +27,7 @@ public class UpdateScore extends JFrame implements ActionListener {
     JButton btnOk = new JButton("确认");
     JButton btnCancel = new JButton("取消");
 
-    public UpdateScore () {
+    public UpdateScore() {
         JPanel jPanel = new JPanel();
         updateId.setBounds(350, 50, 200, 30);
         jtfId.setBounds(350, 80, 300, 25);
@@ -46,10 +50,9 @@ public class UpdateScore extends JFrame implements ActionListener {
         this.setSize(1000, 600);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        /*this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
     }
 
-    public boolean isAllNumber (String s) {
+    public boolean isAllNumber(String s) {
         char[] str = s.toCharArray();
         for (char c : str) {
             if (c < '0' || c > '9') {
@@ -67,16 +70,13 @@ public class UpdateScore extends JFrame implements ActionListener {
             int isEmpty = 0;
             int isLegal = 0;
 
-            String temp = "";
-            String tempId = "";
+            String temp = jtfScore.getText();
+            String tempId = jtfId.getText();
             int tempScore = 0;
 
-            temp = jtfScore.getText();
-            tempId = jtfId.getText();
-
-            if ("".equals(tempId)) {
+            if (tempId == null || tempId.length() == 0) {
                 JOptionPane.showMessageDialog(null, "请输入学号！");
-            } else if ("".equals(temp)) {
+            } else if (temp == null || temp.length() == 0) {
                 JOptionPane.showMessageDialog(null, "请输入分数！");
             } else {
                 isEmpty = 1;
@@ -85,10 +85,10 @@ public class UpdateScore extends JFrame implements ActionListener {
             if (isEmpty == 1) {
                 if (isAllNumber(tempId)) {
                     char[] id = tempId.toCharArray();
-                    if (id.length == 11) {
+                    if (id.length == STU_NO_LENGTH) {
                         if (isAllNumber(temp)) {
                             tempScore = Integer.parseInt(jtfScore.getText());
-                            if (0 <= tempScore && tempScore <= 100) {
+                            if (0 <= tempScore && tempScore <= MAX_SCORE) {
                                 isLegal = 1;
                             } else {
                                 JOptionPane.showMessageDialog(null, "分数在0-100！");
@@ -119,7 +119,7 @@ public class UpdateScore extends JFrame implements ActionListener {
                     pstmt.setString(1, tempId);
                     rs = pstmt.executeQuery();
                     while (rs.next()) {
-                        isExist ++;
+                        isExist++;
                     }
 
                     if (isExist == 1) {
