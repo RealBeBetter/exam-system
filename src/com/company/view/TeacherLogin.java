@@ -12,31 +12,47 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * @ author： 雨下一整晚Real
- * @ date： 2021年05月10日 15:43
+ * 教师登录
+ *
+ * @author 雨下一整晚Real
+ * @date 2021年05月10日 15:43
  */
 public class TeacherLogin extends JFrame implements ActionListener {
-    // 定义文本域接收用户名
-    private JTextField jtfId;
-    // 定义密码域接收密码
-    private JPasswordField jpfPassword;
-    // 定义按钮，确认、取消
-    private JButton btnOk;
-    private JButton btnCancel;
+    /**
+     * 定义文本域接收用户名
+     */
+    private final JTextField jtfId;
+    /**
+     * 定义密码域接收密码
+     */
+    private final JPasswordField jpfPassword;
+    /**
+     * 定义按钮，确认、取消
+     */
+    private final JButton btnOk;
+    private final JButton btnCancel;
 
-    static String teacherId = "";   // 传值给TeacherView使用
+    /**
+     * 传值给TeacherView使用
+     */
+    static String teacherId = "";
 
-    private static String tId = "";              // 工号
+    /**
+     * 工号
+     */
+    private static String tId = "";
 
-    private String tPassword = "";        // 密码
+    /**
+     * 密码
+     */
+    private String tPassword = "";
 
-    private JLabel welcome;
-    private JButton back;
+    private final JButton back;
 
     public TeacherLogin() {
         super("学生在线考试系统_教师登录");
 
-        welcome = new JLabel("教师注册界面");
+        JLabel welcome = new JLabel("教师注册界面");
         back = new JButton("返回");
         back.addActionListener(this);
 
@@ -102,21 +118,18 @@ public class TeacherLogin extends JFrame implements ActionListener {
          *    - 若匹配，则密码正确
          *    - 若不匹配，则密码错误
          * */
-        // 设置用户输入临时储存
-        // 设置正确工号密码的匹配值
 
-        // 设置用户输入的存储值
+        // 设置用户输入临时储存，设置正确工号密码的匹配值
         String tempId = "";
+        // 设置用户输入的存储值
         String tempPassword = "";
 
         int temp = 0;
 
         if (actionEvent.getSource() == btnOk) {
             if ("".equals(jtfId.getText())) {
-                // System.out.println("请输入工号！");
                 JOptionPane.showMessageDialog(null, "请输入工号！");
             } else if ("".equals(new String(jpfPassword.getPassword()))) {
-                // System.out.println("请输入密码！");
                 JOptionPane.showMessageDialog(null, "请输入密码！");
             } else {
                 temp = 1;

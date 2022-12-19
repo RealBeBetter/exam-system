@@ -12,19 +12,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * @ author： 雨下一整晚Real
- * @ date： 2021年05月10日 16:02
+ * 学生注册
+ *
+ * @author 雨下一整晚Real
+ * @date 2021年05月10日 16:02
  */
 public class StudentRegister extends JFrame implements ActionListener {
-    // 提供用户注册界面
 
     private JLabel stuName;
     private JLabel stuId;
     private JLabel stuPassword;
     private JLabel stuSex;
     private JLabel stuAge;
-    private JLabel stuDepartment;   // 学院
-    private JLabel stuMajor;        // 专业
+    /**
+     * 学院
+     */
+    private JLabel stuDepartment;
+    /**
+     * 专业
+     */
+    private JLabel stuMajor;
 
     private JLabel idTip;
     private JLabel passwordTip;
@@ -45,15 +52,17 @@ public class StudentRegister extends JFrame implements ActionListener {
     private JButton back;
 
 
-    // 范围选择
-    String[] stringAge = new String[] {"-请选择-", "10", "11", "12", "13", "14", "15", "16",
+    /**
+     * 范围选择
+     */
+    String[] stringAge = new String[]{"-请选择-", "10", "11", "12", "13", "14", "15", "16",
             "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27",
             "28", "29", "30", "31", "32", "33", "34", "35"};
-    String[] stringMajor = new String[] {"-请选择-", "计算机科学与技术", "软件工程", "物联网", "网络工程"};
-    String[] stringDepartment = new String[] {"-请选择-", "计算机学院"};
-    String[] stringSex = new String[] {"-请选择-", "男", "女"};
+    String[] stringMajor = new String[]{"-请选择-", "计算机科学与技术", "软件工程", "物联网", "网络工程"};
+    String[] stringDepartment = new String[]{"-请选择-", "计算机学院"};
+    String[] stringSex = new String[]{"-请选择-", "男", "女"};
 
-    public StudentRegister () {
+    public StudentRegister() {
         super("学生在线考试系统_学生注册");
 
         welcome = new JLabel("学生注册界面");
@@ -82,9 +91,6 @@ public class StudentRegister extends JFrame implements ActionListener {
         btnCancel.addActionListener(this);
 
         JPanel jPanel = new JPanel();
-        /*welcome.setBounds(430, 20, 200, 30);
-        welcome.setFont(new Font("黑体", Font.PLAIN, 16));
-        back.setBounds(440, 50, 80, 25);*/
         jPanel.add(welcome);
         jPanel.add(back);
         jcbSex = new JComboBox(stringSex);
@@ -145,7 +151,7 @@ public class StudentRegister extends JFrame implements ActionListener {
     }
 
 
-    public boolean isAllNumber (String s) {
+    public boolean isAllNumber(String s) {
         char[] str = s.toCharArray();
         for (char c : str) {
             if (c < '0' || c > '9') {
@@ -188,7 +194,7 @@ public class StudentRegister extends JFrame implements ActionListener {
             }
 
             if (isEmpty == 1) {
-                if (isAllNumber(tempId)){
+                if (isAllNumber(tempId)) {
                     char[] strId = tempId.toCharArray();
                     if (strId.length == 11) {
                         char[] strPassword = tempPassword.toCharArray();
@@ -232,7 +238,7 @@ public class StudentRegister extends JFrame implements ActionListener {
             }
 
             // 非空才开始传入数据
-            if (isEmpty == 1  && isLegal == 1 && isSelect == 1) {
+            if (isEmpty == 1 && isLegal == 1 && isSelect == 1) {
                 // 确认注册，需要传入数据
                 Connection conn = null;
                 PreparedStatement pstmt = null;
@@ -249,7 +255,7 @@ public class StudentRegister extends JFrame implements ActionListener {
                     rs = pstmt.executeQuery();
                     int tempJudge = 0;
                     while (rs.next()) {
-                        tempJudge ++;
+                        tempJudge++;
                     }
                     if (tempJudge == 1) {
                         JOptionPane.showMessageDialog(null, "用户已存在！");
@@ -258,7 +264,6 @@ public class StudentRegister extends JFrame implements ActionListener {
                         rs = null;
                         String sql = "insert into student(sname, sno, password, ssex," +
                                 "sage, major, department) values(?, ?, ?, ?, ?, ?, ?)";
-                        /*String sql2 = "insert into sc(sno) values(?)";*/
                         pstmt = conn.prepareStatement(sql);
                         pstmt.setString(1, tempName);
                         pstmt.setString(2, tempId);

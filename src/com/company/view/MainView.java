@@ -8,34 +8,80 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
+import java.util.Properties;
 
 /**
- * @ author： 雨下一整晚Real
- * @ date： 2021年05月10日 15:36
+ * 定义主界面
+ *
+ * @author 雨下一整晚Real
+ * @date 2021年05月10日 15:36
  */
 public class MainView extends JFrame implements ActionListener {
-    // 定义主界面
-    // 定义按钮：提交、上一题、下一题、开始
+
+    /**
+     * 设定考试时间，单位：分钟
+     */
+    private static int examTime = 1;
+    /**
+     * 定义按钮：提交、上一题、下一题、开始
+     */
     private JButton start, commit, back, next;
-    // 设置单选按钮
+    /**
+     * 设置单选按钮
+     */
     private JRadioButton aButton, bButton, cButton, dButton;
-    // 设置按钮组
+    /**
+     * 设置按钮组
+     */
     private ButtonGroup buttonGroup;
-    // 设置文本区
+    /**
+     * 设置文本区
+     */
     private static JTextArea jTextArea;
 
-    // 定义所需要的变量值
-    private static Test[] tests;              // 设置试题
-    private static int questionNum = 0;       // 设置题目数量
-    private static int questionPointer = 0;   // 设置题号指针
+    /**
+     * 定义所需要的变量值，设置试题
+     */
+    private static Test[] tests;
+    /**
+     * 设置题目数量
+     */
+    private static int questionNum = 0;
+    /**
+     * 设置题号指针
+     */
+    private static int questionPointer = 0;
     private static int yes = 0;
-    private static int no = 0;               // 设置对错数量
-    private Countdown cd;              // 倒计时
+    /**
+     * 设置对错数量
+     */
+    private static int no = 0;
+    /**
+     * 倒计时
+     */
+    private final Countdown countdown;
+
+    static {
+        // 1. 创建properties集合类
+        Properties properties = new Properties();
+
+        // 2.加载文件
+        try {
+            properties.load(new FileReader("src\\com\\company\\resources\\jdbc.properties"));
+            String property = properties.getProperty("test-time");
+            examTime = Integer.parseInt(property);
+        } catch (IOException e) {
+            System.out.println("加载配置文件出错，考试时间默认设置为 1min ");
+            e.printStackTrace();
+            examTime = 1;
+        }
+    }
 
     MainView() {
         super("学生在线考试系统_答题");
@@ -45,12 +91,10 @@ public class MainView extends JFrame implements ActionListener {
         JPanel panel2 = new JPanel();
         JPanel panel3 = new JPanel();
 
-        // 设定考试时间
-        final int EXAM_TIME = 1;
         // 设置标签
         JLabel label = new JLabel("总考试时间：" + 1 + "分钟");
         JLabel clock = new JLabel();
-        cd = new Countdown(clock, EXAM_TIME);
+        countdown = new Countdown(clock, examTime);
 
         jTextArea = new JTextArea(20, 40);
         // 设置试题区不能编辑（不能修改试题内容）
@@ -110,8 +154,6 @@ public class MainView extends JFrame implements ActionListener {
         /*
          * 后来发现全屏显示需要调整UI，舍弃使用
          * */
-        /*Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setSize((int) screenSize.getWidth(), (int) screenSize.getHeight());*/
         // 设置尺寸
         this.setSize(1000, 600);
         this.setResizable(false);
@@ -133,12 +175,9 @@ public class MainView extends JFrame implements ActionListener {
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                num ++;
+                num++;
             }
-            /*
-             * 考虑到教师未添加题目的情况
-             *  num == 0
-             * */
+            // 考虑到教师未添加题目的情况
             if (num == 0) {
                 JOptionPane.showMessageDialog(null, "题库为空，请联系教师解决！");
                 this.dispose();
@@ -164,7 +203,7 @@ public class MainView extends JFrame implements ActionListener {
                 tests[i].setQuestionNum(rs.getInt("NUM"));
                 tests[i].setQuestionText(rs.getString("QUESTION"));
                 tests[i].setStandardAnswer(rs.getString("ANSWER"));
-                i ++;
+                i++;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -173,7 +212,12 @@ public class MainView extends JFrame implements ActionListener {
         }
     }
 
-    // 设置单选不重复模块
+
+    /**
+     * 设置单选不重复模块
+     *
+     * @param s 选项字母
+     */
     private void setSelected(String s) {
         if ("A".equals(s)) {
             buttonGroup.setSelected(aButton.getModel(), true);
@@ -192,13 +236,17 @@ public class MainView extends JFrame implements ActionListener {
         }
     }
 
-    // 设置试题展示模块
+    /**
+     * 设置试题展示模块
+     */
     public static void showQuestion() {
         jTextArea.setText("");
         jTextArea.append(tests[questionPointer].getQuestionText());
     }
 
-    // 设置打分模块
+    /**
+     * 设置打分模块
+     */
     public static void showScore() {
         for (int i = 0; i < questionNum; i++) {
             if (tests[i].checkAnswer()) {
@@ -207,7 +255,7 @@ public class MainView extends JFrame implements ActionListener {
                 no++;
             }
         }
-        int score  = (int) (yes * 100 / questionNum);
+        int score = (int) (yes * 100 / questionNum);
         // 把学生成绩传回数据库
         // 用到之前登录时候定义的 stuId
         // 答题则表示登录成功，输入Id正确
@@ -225,15 +273,12 @@ public class MainView extends JFrame implements ActionListener {
 
             System.out.println("登录的学号是" + StudentLogin.getStuId());
 
-            int count  = pstmt.executeUpdate();
+            int count = pstmt.executeUpdate();
             System.out.println("改变了" + count + "次成绩");
         } catch (SQLException e) {
             e.printStackTrace();
-        } /*finally {
-            JDBCUtils.close(null, pstmt, conn);
-        }*/
-        JOptionPane.showMessageDialog(null,
-                "答对" + yes + "题，答错"+ no +"题，分数为" + score);
+        }
+        JOptionPane.showMessageDialog(null, "答对" + yes + "题，答错" + no + "题，分数为" + score);
 
         // 展示学生信息，打分
         conn = null;
@@ -270,29 +315,34 @@ public class MainView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         // 按键点击
         if (actionEvent.getSource() == start) {
-            createExam();         // 创建考试
-            questionPointer = 0;  // 题目序号
-            showQuestion();       // 展示试题
-            start.setEnabled(false);  // 设置按键不可点击
-            cd.start();           // 开始计时
+            // 创建考试
+            createExam();
+            // 题目序号
+            questionPointer = 0;
+            // 展示试题
+            showQuestion();
+            // 设置按键不可点击
+            start.setEnabled(false);
+            // 开始计时
+            countdown.start();
         } else if (actionEvent.getSource() == back) {
-            questionPointer --;
+            questionPointer--;
             if (questionPointer == -1) {
                 JOptionPane.showMessageDialog(null, "已经是第一题了！");
-                questionPointer ++;
+                questionPointer++;
             } else {
                 // 当前题目未完成，需要清空选项值
-                setSelected(Objects.requireNonNullElse(tests[questionPointer].getStuAnswer(), ""));
+                setSelected(tests[questionPointer].getStuAnswer() == null ? "" : tests[questionPointer].getStuAnswer());
             }
             showQuestion();
         } else if (actionEvent.getSource() == next) {
-            questionPointer ++;
+            questionPointer++;
             if (questionPointer == questionNum) {
                 JOptionPane.showMessageDialog(null, "已经是最后一题了！");
-                questionPointer --;
+                questionPointer--;
             } else {
                 // 当前题目未完成，需要清空选项值
-                setSelected(Objects.requireNonNullElse(tests[questionPointer].getStuAnswer(), ""));
+                setSelected(tests[questionPointer].getStuAnswer() == null ? "" : tests[questionPointer].getStuAnswer());
             }
             showQuestion();
         } else if (actionEvent.getSource() == commit) {

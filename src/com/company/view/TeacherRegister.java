@@ -12,12 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * @ author： 雨下一整晚Real
- * @ date： 2021年05月10日 15:52
+ * 教师注册，提供用户注册界面
+ *
+ * @author 雨下一整晚Real
+ * @date 2021年05月10日 15:52
  */
 public class TeacherRegister extends JFrame implements ActionListener {
-    // 提供用户注册界面
-
     private JLabel tName;
     private JLabel tId;
     private JLabel tPassword;
@@ -38,9 +38,9 @@ public class TeacherRegister extends JFrame implements ActionListener {
     private JButton back;
 
     // 范围选择
-    String[] stringSex = new String[] {"-请选择-", "男", "女"};
+    String[] stringSex = new String[]{"-请选择-", "男", "女"};
 
-    public TeacherRegister () {
+    public TeacherRegister() {
         super("学生在线考试系统_教师注册");
 
         welcome = new JLabel("教师注册界面");
@@ -107,7 +107,7 @@ public class TeacherRegister extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public boolean isAllNumber (String s) {
+    public boolean isAllNumber(String s) {
         char[] str = s.toCharArray();
         for (char c : str) {
             if (c < '0' || c > '9') {
@@ -151,7 +151,7 @@ public class TeacherRegister extends JFrame implements ActionListener {
             }
 
             if (isEmpty == 1) {
-                if (isAllNumber(tempId)){
+                if (isAllNumber(tempId)) {
                     char[] strId = tempId.toCharArray();
                     if (strId.length == 11) {
                         char[] strPassword = tempPassword.toCharArray();

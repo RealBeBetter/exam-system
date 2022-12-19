@@ -3,15 +3,18 @@ package com.company.testpaper;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
- * @ author： 雨下一整晚Real
- * @ date： 2021年05月11日 22:48
+ * 添加试卷
+ *
+ * @author 雨下一整晚Real
+ * @date 2021年05月11日 22:48
  */
 public class AddPaper {
     public static Map<String, String> importTestPaper() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("D:\\Java\\IdeaProjects\\StudentOnlineExaminationSystem\\Test.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("..\\exam-system\\Test.txt"));
         Map<String, String> testMap = new LinkedHashMap<String, String>();
         StringBuilder stringBuilder = new StringBuilder();
         char[] chars = new char[1024];
@@ -36,7 +39,7 @@ public class AddPaper {
         }
         String s = stringBuilder.toString();
         System.out.println(s);
-        for (int i = 0; i < flag ; i++) {
+        for (int i = 0; i < flag; i++) {
             testMap.put(tests[i], answers[i]);
         }
         System.out.println("-------");

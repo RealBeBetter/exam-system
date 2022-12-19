@@ -23,21 +23,14 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @ author： 雨下一整晚Real
- * @ date： 2021年05月10日 15:42
+ * 教师界面
+ *
+ * @author 雨下一整晚Real
+ * @date 2021年05月10日 15:42
  */
 public class TeacherView extends JFrame implements ActionListener {
 
-    private JLabel welcome;
-
-    private JLabel name;
-    private JLabel id;
-    private JLabel sex;
-    private JLabel tName;
-    private JLabel tId;
-    private JLabel tSex;
-
-    private JButton back;
+    private final JButton back;
 
     String teacherName = "";
     String teacherId = "";
@@ -49,14 +42,14 @@ public class TeacherView extends JFrame implements ActionListener {
     private JButton btnQueryScore;
     private JButton btnUpdateScore;
 
-    // 学生信息表格查询
-    private DefaultTableModel model;
-    private JScrollPane jScrollPane;
-    private JPanel jPanel3;
-    private JTable jTable;
+    /**
+     * 学生信息表格查询
+     */
+    private final DefaultTableModel model;
+    private final JTable jTable;
     Student[] students;
 
-    public TeacherView () {
+    public TeacherView() {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -78,19 +71,19 @@ public class TeacherView extends JFrame implements ActionListener {
             JDBCUtils.close(rs, pstmt, conn);
         }
 
-        welcome = new JLabel("教师主页面");
+        JLabel welcome = new JLabel("教师主页面");
         back = new JButton("返回");
         back.addActionListener(this);
         JPanel jPanel1 = new JPanel();
         jPanel1.add(welcome);
         jPanel1.add(back);
 
-        name = new JLabel("姓名：");
-        id = new JLabel("工号：");
-        sex = new JLabel("性别：");
-        tName = new JLabel(teacherName);
-        tId = new JLabel(teacherId);
-        tSex = new JLabel(teacherSex);
+        JLabel name = new JLabel("姓名：");
+        JLabel id = new JLabel("工号：");
+        JLabel sex = new JLabel("性别：");
+        JLabel tName = new JLabel(teacherName);
+        JLabel tId = new JLabel(teacherId);
+        JLabel tSex = new JLabel(teacherSex);
         JPanel jPanel2 = new JPanel();
         name.setBounds(350, 70, 50, 30);
         tName.setBounds(400, 70, 200, 30);
@@ -124,7 +117,7 @@ public class TeacherView extends JFrame implements ActionListener {
         btnAddQuestion.addActionListener(this);
         btnAddPaper.addActionListener(this);
 
-        jPanel3 = new JPanel();
+        JPanel jPanel3 = new JPanel();
         String[] columnName = {"姓名", "学号", "性别", "年龄", "成绩", "学院", "专业"};
         String[] columnWidth = {"80", "120", "40", "40", "40", "90", "90"};
         model = new DefaultTableModel();
@@ -140,7 +133,6 @@ public class TeacherView extends JFrame implements ActionListener {
         DefaultTableCellRenderer cr = new DefaultTableCellRenderer();
         cr.setHorizontalAlignment(JLabel.CENTER);
         jTable.setDefaultRenderer(Object.class, cr);
-        jScrollPane = new JScrollPane(jTable);
         add(jTable);
         jTable.setVisible(false);
 
@@ -156,20 +148,12 @@ public class TeacherView extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    /*public static void main(String[] args) {
-        new TeacherView();
-    }*/
-
-
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource() == back) {
             this.dispose();
             new TeacherLogin();
         } else if (actionEvent.getSource() == btnQueryScore) {
-            // btnQueryScore.setEnabled(false);
-            /*Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            this.setSize((int) screenSize.getWidth(), (int) screenSize.getHeight());*/
             Connection conn = null;
             PreparedStatement pstmt = null;
             ResultSet rs = null;
@@ -208,9 +192,9 @@ public class TeacherView extends JFrame implements ActionListener {
                         students[i].setStudentScore(rs.getInt("score"));
                         students[i].setStudentDepartment(rs.getString("department"));
                         students[i].setStudentMajor(rs.getString("major"));
-                        i ++;
+                        i++;
                     }
-                    for (int j = 0; j < i; j ++) {
+                    for (int j = 0; j < i; j++) {
                         model.addRow(new Object[]{students[j].getStudentName(), students[j].getStudentId(),
                                 students[j].getStudentSex(), students[j].getStudentAge(), students[j].getStudentScore(),
                                 students[j].getStudentDepartment(), students[j].getStudentMajor()});
@@ -269,7 +253,7 @@ public class TeacherView extends JFrame implements ActionListener {
                     } else {
                         System.out.println("题目添加失败！");
                     }
-                    flag ++;
+                    flag++;
                 }
                 System.out.println("题库添加完毕！");
                 JOptionPane.showMessageDialog(null, "题库添加完成！");

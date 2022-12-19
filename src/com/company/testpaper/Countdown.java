@@ -6,14 +6,19 @@ import javax.swing.*;
 import java.text.NumberFormat;
 
 /**
- * @ author： 雨下一整晚Real
- * @ date： 2021年05月10日 15:54
+ * 倒计时
+ *
+ * @author 雨下一整晚Real
+ * @date 2021年05月10日 15:54
  */
-public class Countdown extends Thread{
-    // 设置考试倒计时
-    // 剩余时间
-    private JLabel leftTime;
-    // 考试设置时间，总时间
+public class Countdown extends Thread {
+    /**
+     * 设置考试倒计时，剩余时间
+     */
+    private final JLabel leftTime;
+    /**
+     * 考试设置时间，总时间
+     */
     private int totalTime;
 
     public Countdown(JLabel lT, int tT) {
@@ -37,15 +42,15 @@ public class Countdown extends Thread{
             // 增加到leftTime标签
             stringBuilder.append("考试剩余时间为：").append(numberFormat.format(h)).append(":").append(numberFormat.format(m)).append(":").append(numberFormat.format(s));
             leftTime.setText(stringBuilder.toString());
-            System.out.println("lefttime ：" + leftTime);
+            System.out.println("left time: " + leftTime);
             try {
-                //延时一秒
+                // 延时一秒
                 Thread.sleep(1000);
             } catch (Exception e) {
                 // ignore error
             }
             // 单位是s，延时1s则总时长-1
-            totalTime --;
+            totalTime--;
         }
         if (totalTime == 0) {
             JOptionPane.showMessageDialog(null, "考试结束");

@@ -12,29 +12,39 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * @ author： 雨下一整晚Real
- * @ date： 2021年05月10日 16:01
+ * 学生登录
+ *
+ * @author 雨下一整晚Real
+ * @date 2021年05月10日 16:01
  */
 public class StudentLogin extends JFrame implements ActionListener {
-    // 定义文本域接收用户名
-    private JTextField jtfId;
-    // 定义密码域接收密码
-    private JPasswordField jpfPassword;
-    // 定义按钮，确认、取消
-    private JButton btnOk;
-    private JButton btnCancel;
+    /**
+     * 定义文本域接收用户名
+     */
+    private final JTextField jtfId;
+    /**
+     * 定义密码域接收密码
+     */
+    private final JPasswordField jpfPassword;
+    /**
+     * 定义按钮，确认、取消
+     */
+    private final JButton btnOk;
+    private final JButton btnCancel;
 
-    private static String stuId = "";              // 学号
+    /**
+     * 学号
+     */
+    private static String stuId = "";
 
     public static String getStuId() {
         return stuId;
     }
 
-    public void setStuId(String stuId) {
-        this.stuId = stuId;
-    }
-
-    private String stuPassword = "";        // 密码
+    /**
+     * 密码
+     */
+    private String stuPassword = "";
 
     private JLabel welcome;
     private JButton back;
@@ -51,8 +61,7 @@ public class StudentLogin extends JFrame implements ActionListener {
         jPanel.add(back);
         this.add(jPanel, BorderLayout.NORTH);
 
-        // 学号密码输入部分
-        // 定义界面
+        // 学号密码输入部分，定义界面
         JPanel jpMain = new JPanel();
         // 定义标签
         JLabel lblId = new JLabel("学号：");
@@ -108,8 +117,7 @@ public class StudentLogin extends JFrame implements ActionListener {
          *    - 若匹配，则密码正确
          *    - 若不匹配，则密码错误
          * */
-        // 设置用户输入临时储存
-        // 设置正确学号密码的匹配值
+        // 设置用户输入临时储存，设置正确学号密码的匹配值
         String stuPassword = "";
 
         // 设置用户输入的存储值
@@ -120,10 +128,8 @@ public class StudentLogin extends JFrame implements ActionListener {
 
         if (actionEvent.getSource() == btnOk) {
             if ("".equals(jtfId.getText())) {
-                // System.out.println("请输入学号！");
                 JOptionPane.showMessageDialog(null, "请输入学号！");
             } else if ("".equals(new String(jpfPassword.getPassword()))) {
-                // System.out.println("请输入密码！");
                 JOptionPane.showMessageDialog(null, "请输入密码！");
             } else {
                 temp = 1;
@@ -138,7 +144,6 @@ public class StudentLogin extends JFrame implements ActionListener {
                 ResultSet rs = null;
                 try {
                     conn = JDBCUtils.getConnection();
-                    // JOptionPane.showMessageDialog(null, "数据库连接成功！");
                     System.out.println("登录：数据库连接成功！");
                     String sql = "select password from student where sno = ?";
                     pstmt = conn.prepareStatement(sql);
@@ -151,7 +156,6 @@ public class StudentLogin extends JFrame implements ActionListener {
                     if (tempPassword.equals(stuPassword)) {
                         JOptionPane.showMessageDialog(null, "登录成功！");
                         // 学号正确，填入学号，后期更新成绩需要用到
-                        /*setStuId(tempId);*/
                         stuId = tempId;
                         // 执行页面跳转
                         this.dispose(); // 关闭登录界面

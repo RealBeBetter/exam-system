@@ -6,24 +6,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * @ author： 雨下一整晚Real
- * @ date： 2021年05月10日 15:39
+ * 用户验证身份为教师之后，需要选择登录/注册
+ * 根据教师的选择进行跳转相应的界面
+ *
+ * @author 雨下一整晚Real
+ * @date 2021年05月10日 15:39
  */
 public class TeacherSelect extends JFrame implements ActionListener {
-    /*
-     * 用户验证身份为教师之后，需要选择登录/注册
-     * 根据教师的选择进行跳转相应的界面
-     * */
-    private JButton jRegister;
-    private JButton jLogin;
+    private final JButton jRegister;
+    private final JButton jLogin;
 
-    private JLabel welcome;
-    private JButton back;
+    private final JButton back;
 
     public TeacherSelect() {
         super("学生在线考试系统_教师注册/登录");
 
-        welcome = new JLabel("教师操作选择");
+        JLabel welcome = new JLabel("教师操作选择");
         back = new JButton("返回");
         back.addActionListener(this);
 

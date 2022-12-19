@@ -6,8 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * @ author： 雨下一整晚Real
- * @ date： 2021年05月10日 15:37
+ * @author 雨下一整晚Real
+ * @date 2021年05月10日 15:37
  */
 public class SelectIdentity extends JFrame implements ActionListener {
     // 提供用户身份选择
@@ -22,11 +22,18 @@ public class SelectIdentity extends JFrame implements ActionListener {
      *   - 如果身份正确，给与注册进入下一步
      * 2. 如果是学生注册，不需要进行判断
      * */
-    private JButton jIdentityTeacher;            // 身份选择，教师
-    private JButton jIdentityStudent;            // 身份选择，学生
+
+    /**
+     * 身份选择，教师
+     */
+    private final JButton jIdentityTeacher;
+    /**
+     * 身份选择，学生
+     */
+    private final JButton jIdentityStudent;
     JFrame jFrame = new JFrame();
 
-    public SelectIdentity () {
+    public SelectIdentity() {
         super("学生在线考试系统_确认您的身份");
 
         JPanel jPanel1 = new JPanel();

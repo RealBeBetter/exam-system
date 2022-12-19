@@ -16,9 +16,10 @@ import java.sql.SQLException;
  * @ date： 2021年05月10日 15:38
  */
 public class CheckIdentity extends JFrame implements ActionListener {
-    /*
-     *  输入管理员密码之后，才能够创建教师账号/登录教师账号
-     * */
+
+    /**
+     * 输入管理员密码之后，才能够创建教师账号/登录教师账号
+     */
     private JButton btnOk;
     private JButton btnCancel;
     private JPasswordField jpfAdmin;
