@@ -1,17 +1,23 @@
 package com.company.student;
 
 /**
- * @ author： 雨下一整晚Real
- * @ date： 2021年05月10日 15:22
+ * 学生
+ *
+ * @author 雨下一整晚Real
+ * @date 2021年05月10日 15:22
  */
 public class Student {
-    // 创建学生类，包含学生对象的各种属性信息
+    /**
+     * 创建学生类，包含学生对象的各种属性信息
+     */
     private String studentName;
     private long studentId;
     private String studentSex;
     private int studentAge;
     private int studentScore;
-    // 学生学院、专业信息
+    /**
+     * 学生学院、专业信息
+     */
     private String studentDepartment;
     private String studentMajor;
 
